@@ -1,5 +1,37 @@
-#spring:
-#  datasource:
-#    username: 'scott'
-#    password: 'tiger'
-#    driver-class-name: org.postgresql.Driver
+server:
+  port: 8080
+  servlet:
+    context-path: "/"
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: one
+  datasource:
+    username: 'postgres'
+    password: 'tiger'
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5555/one
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        hbm2ddl:
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: TRACE
