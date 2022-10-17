@@ -35,3 +35,7 @@ logging:
         type:
           descriptor:
             sql: TRACE
+
+jwt:
+  secret: "Pa$$W0rd4Me"
+  validTime: 300
