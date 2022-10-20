@@ -1,10 +1,15 @@
 package com.example.one.controller;
 
+import com.example.one.jwt.JwtFilter;
 import com.example.one.request.UserRequest;
 import com.example.one.service.OneService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -24,8 +29,17 @@ public class MainController {
     }
 
     @PostMapping(value = "/login", produces = "application/json")
-    public ResponseEntity<String> login(@RequestBody UserRequest user) {
-        String str = oneService.checkUser(user.getId());
-        return ResponseEntity.ok(str);
+    public ResponseEntity<HttpHeaders> login(@RequestBody UserRequest user, HttpServletRequest request) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        String token = oneService.loginCheckUser(user.getId(), user.getPassword());
+        httpHeaders.add(JwtFilter.AUTHORIZATION, JwtFilter.BEARER + token);
+        return ResponseEntity.ok(httpHeaders);
+    }
+
+    @GetMapping(value="/main", produces = "application/json")
+    public ResponseEntity<LocalDateTime> main(HttpServletRequest request) {
+        String token = request.getHeader(JwtFilter.AUTHORIZATION).substring(7);
+        LocalDateTime date = oneService.enterMain(token);
+        return ResponseEntity.ok(date);
     }
 }

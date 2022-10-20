@@ -37,5 +37,5 @@ logging:
             sql: TRACE
 
 jwt:
-  secret: "Pa$$W0rd4Me"
-  validTime: 300
+  secret: "1q2w3e4r5t6y7u8i9o0p!@#$%^&*()QWERTYUIOP"
+  validTime: 300000
