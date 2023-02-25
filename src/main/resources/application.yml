@@ -11,10 +11,11 @@ spring:
   application:
     name: one
   datasource:
-    username: 'postgres'
-    password: 'tiger'
+    username: 'username'
+    password: 'password'
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5555/one
+    url: jdbc:postgresql://localhost:5432/
+
   jpa:
     database: postgresql
     hibernate:
@@ -23,10 +24,18 @@ spring:
     properties:
       hibernate:
         default_schema: public
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL15Dialect
         format_sql: true
         hbm2ddl:
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+
+  flyway:
+    enabled: true # flyway를 사용하겠다는 설정
+    baseline-on-migrate: true # 버전 정보를 flyway_schema_history라는 테이블에서 자동으로 생성
+    url: jdbc:postgresql://localhost:5432
+    user: 'username'
+    password: 'password'
+
 
 logging:
   level:
