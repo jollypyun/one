@@ -10,11 +10,20 @@ server:
 spring:
   application:
     name: one
+
   datasource:
-    username: 'username'
-    password: 'password'
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/
+    master:
+      hikari:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5432
+        username: username
+        password: password
+    slave:
+      hikari:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5433
+        username: username
+        password: password
 
   jpa:
     database: postgresql
