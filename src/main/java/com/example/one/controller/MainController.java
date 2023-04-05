@@ -3,13 +3,12 @@ package com.example.one.controller;
 import com.example.one.jwt.JwtFilter;
 import com.example.one.request.UserRequest;
 import com.example.one.service.OneService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Proxy;
 import java.time.LocalDateTime;
 
 @RestController
@@ -33,7 +32,7 @@ public class MainController {
     public ResponseEntity<HttpHeaders> login(@RequestBody UserRequest user, HttpServletRequest request) {
         HttpHeaders httpHeaders = new HttpHeaders();
         String token = oneService.loginCheckUser(user.getId(), user.getPassword());
-        httpHeaders.add(JwtFilter.AUTHORIZATION, JwtFilter.BEARER + token);
+        httpHeaders.add(JwtFilter.AUTHORIZATION, "Bearer " + token);
         return ResponseEntity.ok(httpHeaders);
     }
 

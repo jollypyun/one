@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class JwtTokenProvider {
     @Value("${jwt.validTime}")
     private long validTime;
     private Key key;
+    private final static String AUTH = "Bearer ";
 
     public String createAccessToken(UserInfo userInfo) {
         String authority = userInfo.getRole();
@@ -70,5 +72,12 @@ public class JwtTokenProvider {
             throw new RuntimeException("This is invalid token");
         }
         return claims.getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    public String resolveToken(String token) {
+        if(StringUtils.hasText(token) && token.startsWith(AUTH)) {
+            return token.substring(7);
+        }
+        return null;
     }
 }

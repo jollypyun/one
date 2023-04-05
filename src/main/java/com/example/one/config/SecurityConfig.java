@@ -19,10 +19,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .httpBasic().disable()
-                .authorizeRequests()
-                .antMatchers("/api/main").authenticated()
-                .antMatchers("/api/join", "/api/hello", "/api/login").permitAll()
+                .httpBasic().disable().authorizeHttpRequests()
+                .requestMatchers("/api/main", "api/logout").authenticated()
+                .requestMatchers("/api/join", "/api/hello", "/api/login").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ROLE_ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
