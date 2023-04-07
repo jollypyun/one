@@ -1,0 +1,16 @@
+package com.example.one.config;
+
+import lombok.extern.slf4j.XSlf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+@XSlf4j
+public class WebClientConfig {
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder()
+                .build();
+    }
+}
