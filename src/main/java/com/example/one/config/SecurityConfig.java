@@ -20,9 +20,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .httpBasic().disable().authorizeHttpRequests()
-                .requestMatchers("/api/main", "api/logout").authenticated()
-                .requestMatchers("/api/join", "/api/hello", "/api/login").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ROLE_ADMIN")
+                .requestMatchers("/member/**").authenticated()
+                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

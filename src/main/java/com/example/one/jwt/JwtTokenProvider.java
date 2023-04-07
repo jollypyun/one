@@ -1,10 +1,8 @@
 package com.example.one.jwt;
 
-import com.example.one.model.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,22 +26,9 @@ public class JwtTokenProvider {
     @Value("${jwt.validTime}")
     private long validTime;
     private Key key;
-    private final static String AUTH = "Bearer ";
+    private static final String AUTH = "Bearer ";
 
-    public String createAccessToken(UserInfo userInfo) {
-        String authority = userInfo.getRole();
-        key = Keys.hmacShaKeyFor(secret.getBytes());
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + validTime);
 
-        return Jwts.builder()
-                .setIssuedAt(now)
-                .setExpiration(exp)
-                .setSubject(userInfo.getId())
-                .claim("auth", authority)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-    }
 
     public boolean validateToken(String token) {
         key = Keys.hmacShaKeyFor(secret.getBytes());
