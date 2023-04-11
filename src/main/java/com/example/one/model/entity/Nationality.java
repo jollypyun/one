@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "nationality")
@@ -15,6 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Nationality {
     @Id
     @Column(name = "nation_id")
@@ -29,6 +27,6 @@ public class Nationality {
     @Column(name = "national_code")
     private String nationalCode;
 
-    @Column(name = "nin")
-    private Integer nin;
+    @Column(name = "isd")
+    private String isd;
 }
