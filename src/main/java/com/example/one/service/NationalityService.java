@@ -9,4 +9,6 @@ public interface NationalityService {
     List<OneNationResponse> selectOneNation();
 
     OneNationResponse insertOneNation(OneNationRequest request);
+
+    OneNationResponse updateOneNation(OneNationRequest request);
 }

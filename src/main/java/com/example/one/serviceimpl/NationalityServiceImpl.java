@@ -51,4 +51,23 @@ public class NationalityServiceImpl implements NationalityService {
                 .nationalCode(nationality.getNationalCode())
                 .build();
     }
+
+    @Override
+    public OneNationResponse updateOneNation(OneNationRequest request) {
+        Nationality nationality = nationalityRepository.findByName(request.getName());
+        Nationality updated = Nationality.builder()
+                .nationId(nationality.getNationId())
+                .name(request.getName())
+                .capital(request.getCapital())
+                .nationalCode(request.getNationalCode())
+                .isd(request.getIsd())
+                .build();
+        nationalityRepository.save(updated);
+        return OneNationResponse.builder()
+                .name(updated.getName())
+                .capital(updated.getCapital())
+                .nationalCode(updated.getNationalCode())
+                .isd(updated.getIsd())
+                .build();
+    }
 }

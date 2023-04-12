@@ -22,7 +22,12 @@ public class NationalityController {
     }
 
     @PostMapping("/oneNation")
-    public ApiResponse<OneNationResponse> putOneNation(@RequestBody OneNationRequest request) {
+    public ApiResponse<OneNationResponse> postOneNation(@RequestBody OneNationRequest request) {
         return ApiResponseGenerator.success(nationalityService.insertOneNation(request));
+    }
+
+    @PutMapping("/oneNation")
+    public ApiResponse<OneNationResponse> putOneNation(@RequestBody OneNationRequest request) {
+        return ApiResponseGenerator.success(nationalityService.updateOneNation(request));
     }
 }
