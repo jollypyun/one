@@ -11,4 +11,6 @@ public interface NationalityService {
     OneNationResponse insertOneNation(OneNationRequest request);
 
     OneNationResponse updateOneNation(OneNationRequest request);
+
+    Integer deleteNations(List<String> request);
 }

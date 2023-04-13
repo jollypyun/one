@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -69,5 +67,14 @@ public class NationalityServiceImpl implements NationalityService {
                 .nationalCode(updated.getNationalCode())
                 .isd(updated.getIsd())
                 .build();
+    }
+
+    @Override
+    public Integer deleteNations(List<String> request) {
+        List<String> ids  = request.stream().map(nation ->
+            nationalityRepository.findByName(nation).getNationId()
+        ).toList();
+        nationalityRepository.deleteAllByIdInBatch(ids);
+        return request.size();
     }
 }
