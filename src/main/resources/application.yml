@@ -34,7 +34,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -69,3 +69,9 @@ logging:
 jwt:
   secret: "1q2w3e4r5t6y7u8i9o0p!@#$%^&*()QWERTYUIOP"
   validTime: 300000
+
+client:
+  url: "http://apis.data.go.kr/1262000/CountryKorTradeService2"
+  timeout: 10000
+  read-time: 10
+  write-time: 10
