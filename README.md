@@ -3,10 +3,7 @@
 
 # 사용
 - Spring Security
-- Spring WebFlux
 - Spring Cloud
-- Spring LDAP
 - Kafka
 - flyway
-- GraphQL
 - JPA(QueryDsl, JPQL)
