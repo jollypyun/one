@@ -8,8 +8,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "password"
       TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: "password"
 
 
 
