@@ -47,7 +47,7 @@
 //            throw new RuntimeException("This is invalid token");
 //        }
 //        String id = claims.getSubject();
-//        List<SimpleGrantedAuthority> list= Stream.of(claims.get("auth").toString()).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+//        List<SimpleGrantedAuthority> list= Stream.of(claims.get("auth").toString()).map(SimpleGrantedAuthority::new).toList();
 //        return new UsernamePasswordAuthenticationToken(id, token, list);
 //    }
 //

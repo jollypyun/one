@@ -22,7 +22,7 @@
 //                .authorizeHttpRequests()
 //                .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
 //                .requestMatchers("/member/**").authenticated()
-//                .requestMatchers("/nation/**").permitAll()
+//                .requestMatchers("/nation/**", "/auth/**").permitAll()
 //                .and()
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()
