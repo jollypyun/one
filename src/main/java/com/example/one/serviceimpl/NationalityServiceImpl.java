@@ -36,10 +36,10 @@ public class NationalityServiceImpl implements NationalityService {
     public OneNationResponse insertOneNation(OneNationRequest request) {
         Nationality nationality = Nationality.builder()
                 .nationId(GenerateId.generateUuid())
-                .name(request.getName())
-                .capital(request.getCapital())
-                .nationalCode(request.getNationalCode())
-                .isd(request.getIsd())
+                .name(request.name())
+                .capital(request.capital())
+                .nationalCode(request.nationalCode())
+                .isd(request.isd())
                 .build();
         nationalityRepository.save(nationality);
         return OneNationResponse.builder()
@@ -52,13 +52,13 @@ public class NationalityServiceImpl implements NationalityService {
 
     @Override
     public OneNationResponse updateOneNation(OneNationRequest request) {
-        Nationality nationality = nationalityRepository.findByName(request.getName());
+        Nationality nationality = nationalityRepository.findByName(request.name());
         Nationality updated = Nationality.builder()
                 .nationId(nationality.getNationId())
-                .name(request.getName())
-                .capital(request.getCapital())
-                .nationalCode(request.getNationalCode())
-                .isd(request.getIsd())
+                .name(request.name())
+                .capital(request.capital())
+                .nationalCode(request.nationalCode())
+                .isd(request.isd())
                 .build();
         nationalityRepository.save(updated);
         return OneNationResponse.builder()

@@ -1,15 +1,18 @@
 package com.example.one.model.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class OneNationRequest {
-    private String name;
-    private String capital;
-    private String nationalCode;
-    private String isd;
+public record OneNationRequest(
+        @NotBlank
+        String name,
+        @NotBlank
+        String capital,
+        @NotBlank
+        @Size(min = 3)
+        String nationalCode,
+        @NotBlank
+        String isd
+) {
+
 }
