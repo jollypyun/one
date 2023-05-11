@@ -31,11 +31,11 @@ services:
     ports:
       - "6379:6379"
 
-#  mongo:
-#    image: mongo
-#    restart: always
-#    ports:
-#      - "27018:27017"
-#    environment:
-#      MONGO_INITRD_ROOT_USERNAME: root
-#      MONGO_INITRD_ROOT_PASSWORD: password
+  mongo-mvc:
+    image: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITRD_ROOT_USERNAME: root
+      MONGO_INITRD_ROOT_PASSWORD: password
