@@ -10,6 +10,7 @@
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+//import org.springframework.web.cors.CorsUtils;
 //
 //@EnableWebSecurity
 //@RequiredArgsConstructor
@@ -20,9 +21,10 @@
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        http.csrf().disable()
 //                .authorizeHttpRequests()
-//                .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
-//                .requestMatchers("/member/**").authenticated()
+//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 //                .requestMatchers("/nation/**", "/auth/**").permitAll()
+//                .requestMatchers("/member/**").authenticated()
+//                .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
 //                .and()
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()

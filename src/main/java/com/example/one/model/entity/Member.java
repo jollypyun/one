@@ -1,6 +1,7 @@
 package com.example.one.model.entity;
 
 import com.example.one.model.request.JoinMember;
+import com.example.one.model.response.JoinResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -34,4 +35,8 @@ public class Member {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    public JoinResponse of() {
+        return new JoinResponse(this.userId, this.nickname, this.name);
+    }
 }
