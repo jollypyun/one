@@ -27,10 +27,10 @@ public record JoinMember(
         @Pattern(regexp = "^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,10}$")
         String name
 ) {
-        public Member to() {
+        public Member to(String newPassword) {
                 return Member.builder()
                         .userId(this.userId)
-                        .password(this.password)
+                        .password(newPassword)
                         .nickname(this.nickname)
                         .name(this.name)
                         .createAt(LocalDateTime.now())

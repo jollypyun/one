@@ -3,11 +3,13 @@ package com.example.one.controller;
 import com.example.one.model.request.JoinMember;
 import com.example.one.model.request.LoginMember;
 import com.example.one.model.response.JoinResponse;
+import com.example.one.model.response.LoginResponse;
 import com.example.one.service.AuthService;
 import com.example.one.support.api.ApiResponse;
 import com.example.one.support.api.ApiResponseGenerator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("/join")
-    public ApiResponse<JoinResponse> join(@RequestBody JoinMember joinMember) {
+    public ApiResponse<JoinResponse> join(@Valid @RequestBody JoinMember joinMember, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return ApiResponseGenerator.error(null);
+        }
         return ApiResponseGenerator.success(authService.insertMember(joinMember));
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody @Valid LoginMember loginMember) {
-        authService.loginMember(loginMember);
+    public ApiResponse<LoginResponse> login(@RequestBody @Valid LoginMember loginMember, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return ApiResponseGenerator.error(null);
+        }
+        return ApiResponseGenerator.success(authService.loginMember(loginMember));
     }
 }
