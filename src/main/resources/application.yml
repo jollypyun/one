@@ -81,3 +81,7 @@ client:
   timeout: 10000
   read-time: 10
   write-time: 10
+
+recaptcha:
+  secret_key: "6LczQxcmAAAAAHPOhl5mPsNSwfaui-Er9sDkZ5fD"
+  verify_url: "https://www.google.com/recaptch/api/siteverify"

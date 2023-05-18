@@ -1,4 +1,4 @@
-package com.example.one.jwt;
+package com.example.one.support.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

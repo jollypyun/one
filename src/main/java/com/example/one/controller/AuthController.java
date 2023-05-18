@@ -5,6 +5,7 @@ import com.example.one.model.request.LoginMember;
 import com.example.one.model.response.JoinResponse;
 import com.example.one.model.response.LoginResponse;
 import com.example.one.service.AuthService;
+import com.example.one.service.CaptchaService;
 import com.example.one.support.api.ApiResponse;
 import com.example.one.support.api.ApiResponseGenerator;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
     private final AuthService authService;
+    private final CaptchaService captchaService;
     @PostMapping("/join")
     public ApiResponse<JoinResponse> join(@Valid @RequestBody JoinMember joinMember, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
@@ -31,6 +33,9 @@ public class AuthController {
     @PostMapping("/login")
     public ApiResponse<LoginResponse> login(@RequestBody @Valid LoginMember loginMember, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
+            return ApiResponseGenerator.error(null);
+        }
+        if(captchaService.verifyToken(loginMember.token()).equals(false)) {
             return ApiResponseGenerator.error(null);
         }
         return ApiResponseGenerator.success(authService.loginMember(loginMember));
