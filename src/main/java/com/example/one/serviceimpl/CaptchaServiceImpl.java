@@ -12,9 +12,9 @@ import java.net.URL;
 
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
-    @Value("${recaptcha.secret_key}")
-    private String url;
     @Value("${recaptcha.verify_url}")
+    private String url;
+    @Value("${recaptcha.secret_key}")
     private String key;
 
     @Override

@@ -84,4 +84,4 @@ client:
 
 recaptcha:
   secret_key: "6LczQxcmAAAAAHPOhl5mPsNSwfaui-Er9sDkZ5fD"
-  verify_url: "https://www.google.com/recaptch/api/siteverify"
+  verify_url: "https://www.google.com/recaptcha/api/siteverify"
