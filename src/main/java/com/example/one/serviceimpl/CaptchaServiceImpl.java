@@ -46,9 +46,8 @@ public class CaptchaServiceImpl implements CaptchaService {
                 response.append(inputLine);
             }
             in.close();
-            log.info(response.toString());
             JsonObject jsonObject = JsonParser.parseString(response.toString()).getAsJsonObject();
-            return String.valueOf(jsonObject.get("success")).equals("true") && Integer.parseInt(String.valueOf(jsonObject.get("score"))) >= HALF;
+            return String.valueOf(jsonObject.get("success")).equals("true") && Double.parseDouble(String.valueOf(jsonObject.get("score"))) >= HALF;
         } catch (Exception e) {
             return false;
         }

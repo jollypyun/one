@@ -10,6 +10,7 @@ import com.example.one.support.api.ApiResponse;
 import com.example.one.support.api.ApiResponseGenerator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class AuthController {
     private final AuthService authService;
     private final CaptchaService captchaService;
