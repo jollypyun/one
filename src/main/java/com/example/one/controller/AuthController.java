@@ -35,7 +35,7 @@ public class AuthController {
         if(bindingResult.hasErrors()) {
             return ApiResponseGenerator.error(null);
         }
-        if(captchaService.verifyToken(loginMember.token()).equals(false)) {
+        if(!captchaService.verifyToken(loginMember.token())) {
             return ApiResponseGenerator.error(null);
         }
         return ApiResponseGenerator.success(authService.loginMember(loginMember));

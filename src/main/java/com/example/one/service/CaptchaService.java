@@ -1,5 +1,5 @@
 package com.example.one.service;
 
 public interface CaptchaService{
-    Object verifyToken(String token);
+    boolean verifyToken(String token);
 }

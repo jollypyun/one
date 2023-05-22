@@ -1,6 +1,9 @@
 package com.example.one.serviceimpl;
 
 import com.example.one.service.CaptchaService;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +14,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
+@Slf4j
 public class CaptchaServiceImpl implements CaptchaService {
     @Value("${recaptcha.verify_url}")
     private String url;
     @Value("${recaptcha.secret_key}")
     private String key;
+    private static final double HALF = 0.5;
 
     @Override
-    public Object verifyToken(String token) {
+    public boolean verifyToken(String token) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("POST");
@@ -35,14 +40,15 @@ public class CaptchaServiceImpl implements CaptchaService {
 
             String inputLine;
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             in.close();
-
-            return response;
+            log.info(response.toString());
+            JsonObject jsonObject = JsonParser.parseString(response.toString()).getAsJsonObject();
+            return String.valueOf(jsonObject.get("success")).equals("true") && Integer.parseInt(String.valueOf(jsonObject.get("score"))) >= HALF;
         } catch (Exception e) {
             return false;
         }
