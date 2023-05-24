@@ -61,10 +61,10 @@ spring:
       host: localhost
       port: 6379
 
-    mongodb:
-      host: root
-      password: password
-      uri: mongodb://localhost:27018/db
+#    mongodb:
+#      username: root
+#      password: password
+#      uri: mongodb://localhost:27018
 
 
 logging:

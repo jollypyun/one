@@ -1,5 +1,6 @@
 package com.example.one.serviceimpl;
 
+import com.example.one.model.Role;
 import com.example.one.model.request.JoinMember;
 import com.example.one.model.request.LoginMember;
 import com.example.one.model.response.JoinResponse;
@@ -69,7 +70,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final var member = authRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("사용자가 없음"));
-        List<GrantedAuthority> list = List.of(new SimpleGrantedAuthority("MEMBER"));
+        List<GrantedAuthority> list = List.of(new SimpleGrantedAuthority(member.getRole().getValue()));
 
         return new User(member.getUserId(), member.getPassword(), list);
     }

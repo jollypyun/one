@@ -1,12 +1,10 @@
 package com.example.one.model.entity;
 
+import com.example.one.model.Role;
 import com.example.one.model.request.JoinMember;
 import com.example.one.model.response.JoinResponse;
 import com.example.one.support.common.GenerateId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +34,10 @@ public class Member {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public JoinResponse of() {
         return new JoinResponse(this.userId,this.nickname, this.name);
