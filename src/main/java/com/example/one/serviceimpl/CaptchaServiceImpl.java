@@ -5,16 +5,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 @Service
-@Slf4j
 public class CaptchaServiceImpl implements CaptchaService {
     @Value("${recaptcha.verify_url}")
     private String url;
@@ -25,28 +25,19 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Override
     public boolean verifyToken(String token) {
         try {
-            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", "Mozila/5.0");
-            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            HttpHeaders httpHeaders= new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-            String param = "secret=" + key + "&response=" + token;
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add("secret", key);
+            map.add("response", token);
 
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(param);
-            wr.flush();
-            wr.close();
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, httpHeaders);
+            RestTemplate restTemplate = new RestTemplate();
 
-            String inputLine;
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuilder response = new StringBuilder();
+            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
-            while((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            JsonObject jsonObject = JsonParser.parseString(response.toString()).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
             return String.valueOf(jsonObject.get("success")).equals("true") && Double.parseDouble(String.valueOf(jsonObject.get("score"))) >= HALF;
         } catch (Exception e) {
             return false;
