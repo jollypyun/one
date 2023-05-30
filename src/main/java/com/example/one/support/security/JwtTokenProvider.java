@@ -31,12 +31,13 @@ public class JwtTokenProvider {
     private static final String AUTH = "Bearer ";
 
     public String createAccessToken(Authentication authentication) {
+        log.info("Auth: " + authentication);
         long date = new Date().getTime();
         Date expire = new Date(date + 5400 * 1000);
         String jwt = Jwts.builder()
                 .setSubject(authentication.getName())
                 .setIssuedAt(new Date(date))
-                .claim("auth", "role")
+                .claim("auth", authentication.getAuthorities())
                 .signWith(signingKey(secret), SignatureAlgorithm.HS256)
                 .setExpiration(expire)
                 .compact();

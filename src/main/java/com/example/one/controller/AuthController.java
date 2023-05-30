@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
     private final CaptchaService captchaService;
-    private final OAuthServiceImpl oAuthService;
     @PostMapping("/join")
     public ApiResponse<JoinResponse> join(@Valid @RequestBody JoinMember joinMember, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {

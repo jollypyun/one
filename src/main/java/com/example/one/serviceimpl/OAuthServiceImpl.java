@@ -49,12 +49,12 @@ public class OAuthServiceImpl implements OAuth2UserService<OAuth2UserRequest, OA
         }
         String name = attributes.getName();
         String uuid = UUID.randomUUID().toString();
-        return Member.builder()
+        return authRepository.save(Member.builder()
                 .userId(email)
                 .nickname(name)
                 .name(name)
                 .password(new BCryptPasswordEncoder().encode(uuid))
                 .role(Role.MEMBER)
-                .build();
+                .build());
     }
 }

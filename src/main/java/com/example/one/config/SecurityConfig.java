@@ -1,5 +1,6 @@
 package com.example.one.config;
 
+import com.example.one.handler.MyAuthenticationSuccessHandler;
 import com.example.one.serviceimpl.OAuthServiceImpl;
 import com.example.one.support.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
     private final JwtFilter jwtFilter;
     private final OAuthServiceImpl oAuthService;
+    private final MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,6 +41,7 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login()
+                .successHandler(myAuthenticationSuccessHandler)
                 .userInfoEndpoint().userService(oAuthService)
                 .and().and().build();
     }
