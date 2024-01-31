@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,21 +29,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtFilter, OAuth2LoginAuthenticationFilter.class);
-        return http
-                .csrf().disable() // JWT를 사용하기에 비활성화
-                .cors() // CorsFilter 활성화
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/member/**").authenticated()
-                .requestMatchers("/auth/**", "/nation/**").permitAll()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 현재 스프링 시큐리티에서 세션을 관리하지 않겠다. JWT 방식을 사용하기 때문이다.
-                .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login()
-                .successHandler(myAuthenticationSuccessHandler)
-                .userInfoEndpoint().userService(oAuthService)
-                .and().and().build();
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll())
+                .build();
+        // deprecated
+//        return http
+//                .csrf().disable() // JWT를 사용하기에 비활성화
+//                .cors() // CorsFilter 활성화
+//                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/member/**").authenticated()
+//                .requestMatchers("/auth/**", "/nation/**").permitAll()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 현재 스프링 시큐리티에서 세션을 관리하지 않겠다. JWT 방식을 사용하기 때문이다.
+//                .and()
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+//                .oauth2Login()
+//                .successHandler(myAuthenticationSuccessHandler)
+//                .userInfoEndpoint().userService(oAuthService)
     }
 
     @Bean
