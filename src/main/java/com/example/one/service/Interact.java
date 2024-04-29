@@ -1,6 +1,8 @@
 package com.example.one.service;
 
+import com.example.one.model.Element;
+
 public interface Interact {
-    void add();
+    Element add(Element element);
     void distract();
 }

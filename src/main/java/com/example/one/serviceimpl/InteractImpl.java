@@ -1,11 +1,12 @@
 package com.example.one.serviceimpl;
 
+import com.example.one.model.Element;
 import com.example.one.service.Interact;
 
 public class InteractImpl implements Interact {
     @Override
-    public void add() {
-
+    public Element add(Element element) {
+        return new Element();
     }
 
     @Override
