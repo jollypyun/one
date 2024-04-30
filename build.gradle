@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     implementation 'com.querydsl:querydsl-apt:5.0.0:jakarta'
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

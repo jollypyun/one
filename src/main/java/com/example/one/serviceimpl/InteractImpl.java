@@ -1,6 +1,6 @@
 package com.example.one.serviceimpl;
 
-import com.example.one.model.Element;
+import com.example.one.model.entity.Element;
 import com.example.one.service.Interact;
 
 public class InteractImpl implements Interact {
