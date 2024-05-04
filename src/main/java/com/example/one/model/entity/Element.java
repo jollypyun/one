@@ -10,8 +10,8 @@ public record Element() {
     @Column(name = "fullname")
     static String fullname;
 
-    @Column(name = "name")
-    static String name;
+    @Column(name = "abbr")
+    static String abbr;
 
     @Column(name = "photon")
     static Integer photon;
@@ -19,8 +19,8 @@ public record Element() {
     @Column(name = "neutron")
     static Integer neutron;
 
-    @Column(name = "electron")
-    static Integer electron;
+//    @Column(name = "electron")
+//    static Integer electron;
 
     @Column(name = "mass")
     static Float mass;
