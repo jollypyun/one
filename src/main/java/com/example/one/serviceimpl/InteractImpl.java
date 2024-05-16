@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class InteractImpl implements Interact {
     @Override
+    public Element get() {
+        return new Element();
+    }
+
+    @Override
     public Element add(Element element) {
         return new Element();
     }

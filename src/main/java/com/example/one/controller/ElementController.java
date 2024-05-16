@@ -1,6 +1,6 @@
 package com.example.one.controller;
 
-import com.example.one.model.entity.Element;
+import com.example.one.model.request.ElementRequest;
 import com.example.one.service.Interact;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ElementController {
     private final Interact interact;
 
-    @GetMapping("/")
-    public void get() {
-        interact.add(new Element());
+    @GetMapping("/get")
+    public void get(ElementRequest request) {
+
     }
 }
