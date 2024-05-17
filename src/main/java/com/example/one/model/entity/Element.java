@@ -1,33 +1,38 @@
 package com.example.one.model.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Table(name="element")
-public record Element() {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Element {
     @Id
     @Column(name = "fullname")
-    static String fullname;
+    String fullname;
 
     @Column(name = "abbr")
-    static String abbr;
+    String abbr;
 
     @Column(name = "photon")
-    static Integer photon;
+    Integer photon;
 
     @Column(name = "neutron")
-    static Integer neutron;
-
-//    @Column(name = "electron")
-//    static Integer electron;
+    Integer neutron;
 
     @Column(name = "mass")
-    static Float mass;
+    Float mass;
 
     @Column(name = "mp")
-    static Float mp;
+    Float mp;
 
     @Column(name = "bp")
-    static Float bp;
+    Float bp;
 }

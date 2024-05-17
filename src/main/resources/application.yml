@@ -34,13 +34,6 @@ spring:
         hbm2ddl:
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
 
-#  flyway:
-#    enabled: true # flyway를 사용하겠다는 설정
-#    baseline-on-migrate: true # 버전 정보를 flyway_schema_history라는 테이블에서 자동으로 생성
-#    url: jdbc:mariadb://localhost:3306
-#    user: 'root'
-#    password: 'password'
-
   data:
     redis:
       host: localhost
@@ -54,9 +47,3 @@ logging:
         type:
           descriptor:
             sql: TRACE
-#
-#client:
-#  url: "http://apis.data.go.kr/1262000/CountryKorTradeService2"
-#  timeout: 10000
-#  read-time: 10
-#  write-time: 10
