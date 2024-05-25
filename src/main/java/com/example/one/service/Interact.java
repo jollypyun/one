@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Interact {
     List<Atom> getAll();
-    Element get();
+    Atom get(Integer photon, Integer neutron);
     Element add(Element element);
     void distract();
 }

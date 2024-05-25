@@ -30,8 +30,17 @@ public class InteractImpl implements Interact {
     }
 
     @Override
-    public Element get() {
-        return new Element();
+    public Atom get(Integer photon, Integer neutron) {
+        Element element = elementRepository.findByPhotonAndNeutron(photon, neutron);
+        return Atom.builder()
+                .photon(element.getPhoton())
+                .neutron(element.getNeutron())
+                .abbr(element.getAbbr())
+                .mass(element.getMass())
+                .name(element.getFullname())
+                .meltingPoint(element.getMp())
+                .boilingPoint(element.getBp())
+                .build();
     }
 
     @Override

@@ -10,4 +10,5 @@ import java.util.List;
 public interface ElementRepository extends JpaRepository<Element, String> {
     List<Element> findAll();
     Element findByFullname(String fullname);
+    Element findByPhotonAndNeutron(Integer photon, Integer Neutron);
 }
