@@ -1,32 +1,32 @@
 package config;
 
-
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import lombok.RequiredArgsConstructor;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
+@RequiredArgsConstructor
 public class SwaggerConfiguration {
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("원자 조회")
+                        .version("1.0")
+                        .description("원자 조회를 위한 API"));
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("원자 관련 사이트")
-                .version("1.0.0")
-                .description("원자 조회 API")
+    @Bean
+    public GroupedOpenApi api() {
+        String[] paths = {"api/v1/**"};
+        String[] packageToScan = {"com.example.springdoc"};
+        return GroupedOpenApi.builder()
+                .group("springdoc-openapi")
+                .pathsToMatch(paths)
+                .packagesToScan(packageToScan)
                 .build();
     }
 }
