@@ -39,7 +39,7 @@ spring:
       host: localhost
       port: 6379
 
-sprindoc:
+springdoc:
   api-docs:
     path: /api-docs
     groups:
