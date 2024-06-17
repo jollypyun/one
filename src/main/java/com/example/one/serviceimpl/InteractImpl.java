@@ -44,6 +44,11 @@ public class InteractImpl implements Interact {
     }
 
     @Override
+    public List<Atom> search(String keyword) {
+        return List.of();
+    }
+
+    @Override
     public Element add(Element element) {
         return new Element();
     }

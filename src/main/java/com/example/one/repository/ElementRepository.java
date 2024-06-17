@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ElementRepository extends JpaRepository<Element, String> {
+public interface ElementRepository extends JpaRepository<Element, String>, ElementCustomRepository {
     List<Element> findAll();
-    Element findByFullname(String fullname);
     Element findByPhotonAndNeutron(Integer photon, Integer Neutron);
 }

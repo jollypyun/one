@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequestMapping("/element")
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +24,10 @@ public class ElementController {
     @GetMapping("/choose")
     public Atom choose(ElementRequest request) {
         return interact.get(request.photon(), request.neutron());
+    }
+
+    @GetMapping("/search")
+    public List<Atom> search(String keyword) {
+        return interact.search(keyword);
     }
 }

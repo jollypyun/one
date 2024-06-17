@@ -2,11 +2,12 @@ package config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class QuerydslConfig {
     /*
     * PersistenceContext: EntityManager 를 빈을로 주입할 때 사용하는 어노테이션
@@ -14,8 +15,8 @@ public class QuerydslConfig {
     * 여러 쓰레드가 동시에 접근하면 동시에 접근하면 동시성 문제가 발생하여 공유해서는 안 된다.
     * PersistenceContext 로 인해 EntityManager를 Proxy로 감싸고 호출 시 Proxy를 통해 EntityManager를 생성해 Thread-safe를 보장
     * */
-    @PersistenceContext
-    private EntityManager em;
+//    @PersistenceContext
+    private final EntityManager em;
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
